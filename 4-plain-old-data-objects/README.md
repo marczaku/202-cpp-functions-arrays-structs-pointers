@@ -1,5 +1,4 @@
 # 4 Plain-Old-Data Classes
-
 - C-Compatible
 - Highly Efficient to Copy or Move
 - Efficiently represented in Memory
@@ -26,10 +25,103 @@ int main() {
 }
 ```
 
+## Size
+
+A Size is as large as the sum of all its members:
+
+```cpp
+#include <cstdio>
+
+struct Book {
+	int numberOfPages; // 4
+	char authorInitialFirstName; // 1
+	char authorInitialLastName; // 1
+	bool isReleased; // 1
+	bool hasHardCover; // 1
+};
+
+int main() {
+	printf("%zu", sizeof(Book)); // 8
+}
+```
+
+## Nesting
+You can nest structs without any bad impact on
+- either performance
+- or memory
+
+```cpp
+#include <cstdio>
+
+struct Author {
+	char initialFirstName;
+	char initialLastName;
+};
+
+struct Book {
+	int numberOfPages; // 4
+	Author author; // 2
+	bool isReleased; // 1
+	bool hasHardCover; // 1
+};
+
+int main() {
+	printf("%zu", sizeof(Book)); // 8
+}
+```
+
 ## Order
-- Order of members is maintained
+- Order of members in Memory is maintained
 - CPU Register Length causes member alignment
 - Rule: Order members from small to large
+
+```cpp
+#include <stdlib.h>
+#include <cstdio>
+#include <time.h>
+
+struct Book {
+	bool isReleased; // 1 (+3 for alignment)
+	int numberOfPages; // 4
+	bool hasHardCover; // 1 (+3 for alignment)
+};
+
+int main() {
+	printf("%zu", sizeof(Book)); // 12
+}
+```
+
+## Copy
+Structs are generally, just like basic data types, copied/cloned when assigned to another variable:
+
+```cpp
+Book a;
+a.numberOfPages = 200;
+Book b = a; // clone
+printf("Pages of Book a:%d\n", a.numberOfPages); // 200
+printf("Pages of Book b:%d\n", b.numberOfPages); // 200
+b.numberOfPages = 100;
+printf("Pages of Book a:%d\n", a.numberOfPages); // 200
+printf("Pages of Book b:%d\n", b.numberOfPages); // 100
+```
+
+## Call-By-Value
+Structs are generally, just like basic data types, copied/cloned when passed on to a function:
+
+```cpp
+void stealHalfTheBook(Book book){
+	book.numberOfPages /= 2;
+	printf("Pages of Book after stealing:%d\n", book.numberOfPages); // 100
+}
+
+int main(){
+	Book book;
+	book.numberOfPages = 200;
+	printf("Pages of main-Book before stealing:%d\n", book.numberOfPages); // 200
+	stealHalfTheBook(book); // clone
+	printf("Pages of main-Book after stealing:%d\n", book.numberOfPages); // 200
+}
+```
 
 ## Union
 
@@ -40,9 +132,13 @@ int main() {
 
 ```cpp
 union Variant {
-	bool isTrue;
-	int number;
-	double decimal;
+	bool isTrue; // 1
+	int number; // 4
+	float decimal; // 4
+};
+
+int main() {
+	printf("%zu", sizeof(Variant)); // 4
 }
 ```
 
@@ -51,7 +147,23 @@ union Variant {
 ```cpp
 Variant v;
 v.number = 42;
-printf("Nice: %d", v.number);
+printf("Nice: %d\n", v.number);
 v.decimal = 2.71828;
-printf("Nope: %d", v.number);
+printf("Nope: %d\n", v.number);
+```
+
+Output:
+```
+Nice: 42
+Nope: 1076754509
+```
+
+## EXERCISE
+- Write a Vector-Struct `Vector2D`
+- Write a function named `add` that can add two vectors and returns the result.
+- Test the Code.
+
+```cpp
+Output: Adding Vector(3,2) and (-1,-2)...
+Output: Result: Vector(2,0)
 ```

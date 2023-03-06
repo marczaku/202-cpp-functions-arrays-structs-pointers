@@ -7,8 +7,14 @@ Reference types store the memory addresses of objects in order to write highly e
 Pointers contain both pieces of information needed to interact with information:
 - address
 - type
-  - size
+  - size of the type
+	- `2 bytes`
+	- `4 bytes`
   - way of interpreting it
+    - `integer`
+	- `floating-point`
+	- `character`
+	- `Book`
 
 ### Definition
 
@@ -129,6 +135,57 @@ int main() {
 	modify(timePtr);
 	printf("Address of time: %p\n", timePtr);
 	printf("Value of time: %d\n", timePtr->year);
+}
+```
+
+### Call-by-Reference
+By passing on a pointer to a function, you can prevent your Struct from being Copied/Cloned:
+
+```cpp
+void stealHalfTheBook(Book* pBook){ // pointer to main-Book
+	pBook->numberOfPages /= 2;
+	printf("Pages of Book after stealing:%d\n", pBook->numberOfPages); // 100
+}
+
+int main(){
+	Book book;
+	book.numberOfPages = 200;
+	printf("Pages of main-Book before stealing:%d\n", book.numberOfPages); // 200
+	stealHalfTheBook(&book); // pass on pointer to main-Book
+	printf("Pages of main-Book after stealing:%d\n", book.numberOfPages); // 100
+}
+```
+
+#### Without the Array-Operator:
+```cpp
+void stealHalfTheBook(Book* pBook){ // pointer to main-Book
+	(*pBook).numberOfPages /= 2;
+	printf("Pages of Book after stealing:%d\n", (*pBook).numberOfPages); // 100
+}
+
+int main(){
+	Book book;
+	book.numberOfPages = 200;
+	printf("Pages of main-Book before stealing:%d\n", book.numberOfPages); // 200
+	stealHalfTheBook(&book); // pass on pointer to main-Book
+	printf("Pages of main-Book after stealing:%d\n", book.numberOfPages); // 100
+}
+```
+
+#### But be careful when dereferencing!
+```cpp
+void stealHalfTheBook(Book* pBook){ // pointer to main-Book
+	Book book = *pBook; // clone
+	book.numberOfPages /= 2;
+	printf("Pages of Book after stealing:%d\n", book.numberOfPages); // 100
+}
+
+int main(){
+	Book book;
+	book.numberOfPages = 200;
+	printf("Pages of main-Book before stealing:%d\n", book.numberOfPages); // 200
+	stealHalfTheBook(&book); // pass on pointer to main-Book
+	printf("Pages of main-Book after stealing:%d\n", book.numberOfPages); // 200
 }
 ```
 
