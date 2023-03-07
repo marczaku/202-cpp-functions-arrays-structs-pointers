@@ -99,3 +99,16 @@ Ask the user for 9 numbers. Store them in an array. Return the Average of all nu
 
 ## BONUS EXERCISE
 Return the Median of those numbers.
+
+## EXERCISE
+Left-Rotate an Array.
+- All elements should move one index to the left (to a lower index)
+- The first element should move to the last Index
+
+```
+Before: 12 14 16 18 20
+After: 14 16 18 20 12
+```
+
+## EXERCISE
+Implement a Tic-Tac-Toe Game.

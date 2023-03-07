@@ -46,3 +46,7 @@ int main() {
 
 ## Reference vs. Pointer
 Use Pointers only, when you need to reseat them or because you need a nullable type ()`nullptr`). In all other cases, References should be preferred.
+
+## EXERCISE
+Rewrite the Swap function from the Pointers Chapter to use References
+- Is it easier to use?

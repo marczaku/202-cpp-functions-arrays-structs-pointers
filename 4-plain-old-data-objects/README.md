@@ -123,6 +123,15 @@ int main(){
 }
 ```
 
+## Self-Reference
+A struct cannot contain itself as a Member. Why?
+
+```cpp
+struct SnakeBody {
+	SnakeBody nextBody;
+};
+```
+
 ## Union
 
 - Puts all members into the same place.

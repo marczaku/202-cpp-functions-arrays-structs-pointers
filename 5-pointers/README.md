@@ -176,7 +176,7 @@ int main(){
 ```cpp
 void stealHalfTheBook(Book* pBook){ // pointer to main-Book
 	Book book = *pBook; // clone
-	book.numberOfPages /= 2;
+	pBook->numberOfPages /= 2;
 	printf("Pages of Book after stealing:%d\n", book.numberOfPages); // 100
 }
 
@@ -434,45 +434,24 @@ if(chosenName != nullptr)
 // is the same as:
 if(chosenName)
 ```
-Sometimes, you need to access the `current object` from a method. As in, the object on which the Method is currently being invoked. e.g. when attacking:
+
+## EXERCISE
+Write a Swap Function
+- It takes two arguments of type int pointer
+- It swaps the values behind both pointers
+- Use the following code:
 
 ```cpp
-#include <cstdio>
-struct Unit{
-	char* name;
-	Unit(char* name){
-		// Use case for `this`: name is the name both for the constructor arg as well as the field member
-		this->name = name;
-	}
-
-	void attack(Unit* target){
-		// Use case for `this`: pass on a pointer to ourselves to the attacked Unit
-		target->attackedBy(this);
-	}
-
-	void attackedBy(Unit* attacker){
-		printf("%s got attacked by %s.\n", name, attacker->name);
-	}
-};
+// enter swap function here
 
 int main(){
-	Unit hero{"Hero"};
-	Unit monster{"Monster"};
-	hero.attack(&monster);
+	int four = 4;
+	int five = 5;
+	printf("This is four: %d, This is five: %d", four, five);
+	// invoke swap function here passing pointers to five and four.
+	printf("This used to be four: %d, This used to be five: %d", four, five);
+	return 0;
 }
 ```
 
-
-```cpp
-auto number{12};
-auto isAlive{true};
-auto name{"Marc"};
-```
-
-### Reference Types
-
-```cpp
-auto number{42};
-auto& numberRef = number;
-auto* numberPtr = &number;
-```
+What happens, if you pass in `nullptr` as one of the arguments into the function?
