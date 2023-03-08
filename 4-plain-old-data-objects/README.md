@@ -179,7 +179,7 @@ Output: Result: Vector(2,0)
 
 
 ## EXERCISE
-- Improve the following `struct`:
+- Improve the following `struct` by introducing additional `structs`:
 
 ```cpp
 struct Game{
@@ -238,3 +238,4 @@ int main(){
 }
 ```
 
+## EXERCISE
