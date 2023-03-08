@@ -73,7 +73,7 @@ int main() {
 ## Order
 - Order of members in Memory is maintained
 - CPU Register Length causes member alignment
-- Rule: Order members from small to large
+- Rule: Order members from large to small
 
 ```cpp
 #include <stdlib.h>
