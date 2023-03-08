@@ -1,9 +1,9 @@
-# 209 C++ Basics
+# 210 C++ Functions, Arrays and Structs
 
-In this course, we'll learn all the basics to get us up and running far enough to be able to implement Nim / Tic-Tac-Toe!
+In this course, we'll learn some of the core features of C++ not including Object-Oriented Programming, yet.
 
 ## Passing Criteria
-Implement Nim
+TBA
 
 ## Excellent Criteria
-Implement Tic-Tac-Toe
+TBA
