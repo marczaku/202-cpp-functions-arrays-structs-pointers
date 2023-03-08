@@ -176,3 +176,65 @@ Nope: 1076754509
 Output: Adding Vector(3,2) and (-1,-2)...
 Output: Result: Vector(2,0)
 ```
+
+
+## EXERCISE
+- Improve the following `struct`:
+
+```cpp
+struct Game{
+   int remainingMinutes;
+   char firstPlayerName[10];
+   int firstPlayerScore;
+   int firstPlayerPositionX;
+   int firstPlayerPositionY;
+   int firstPlayerVelocityX;
+   int firstPlayerVelocityY;
+   char secondPlayerName[10];
+   int secondPlayerScore;
+   int secondPlayerPositionX;
+   int secondPlayerPositionY;
+   int secondPlayerVelocityX;
+   int secondPlayerVelocityY;
+   
+   int chest1PositionX;
+   int chest1PositionY;
+   bool chest1Collected;
+   int chest2PositionX;
+   int chest2PositionY;
+   bool chest2Collected;
+   int chest3PositionX;
+   int chest3PositionY;
+   bool chest3Collected;
+   int chest4PositionX;
+   int chest4PositionY;
+   bool chest4Collected;
+   int keyPositionX;
+   int keyPositionY;
+   bool keyCollected;
+   
+   int goalPositionX;
+   int goalPositionY;
+   int goalWidthX;
+   int goalHeightY;
+};
+```
+
+## EXERCISE
+- Fix the following code, so the `book` within `main()` has its `numberOfPages` changed after calling the function:
+```cpp
+```cpp
+void stealHalfTheBook(Book book){
+	book.numberOfPages /= 2;
+	printf("Pages of Book after stealing:%d\n", book.numberOfPages); // 100
+}
+
+int main(){
+	Book book;
+	book.numberOfPages = 200;
+	printf("Pages of main-Book before stealing:%d\n", book.numberOfPages); // 200
+	stealHalfTheBook(book); // clone
+	printf("Pages of main-Book after stealing:%d\n", book.numberOfPages); // 200
+}
+```
+
