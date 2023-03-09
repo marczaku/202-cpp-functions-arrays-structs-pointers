@@ -455,3 +455,66 @@ int main(){
 ```
 
 What happens, if you pass in `nullptr` as one of the arguments into the function?
+
+## EXERCISE
+Write a function that takes in an Array of floats as an argument (and whatever else is needed) and returns the average of all floats.
+
+```
+Input: {1, 2, 3, 4, 5}
+Output: 3
+```
+
+## EXERCISE
+Write a function that takes a C-Style String and which then counts the number of words in the string.
+Hint: A String starts at the pointer of the first character.
+Hint: A String ends, when the current character is a `'\0'` character.
+Hint: You can increment a pointer.
+Hint: A new word begins every time you find a `' '`.
+Bonus: A new word also begins after other whitespace characters ('\t', '\n')
+
+```
+Input: Hello, my name is Marc.
+Output: 5
+```
+
+## EXERCISE
+Write an employee struct with Name (up to 100 characters) and Salary.
+Ask the user for 5 Employees' Name and Salary.
+Store those Employees in an Array.
+Write a Function that prints all Employees to the console.
+Write a Function that prints the average Salary to the console.
+
+Here's some help for reading the Name from the console:
+```cpp
+// this one will cut off before the first white space or new line:
+scanf_s("%s", (pointerToCStyleString), 100);
+
+// this one will include whitespaces and cut off after the first new line:
+fgets((pointerToCStyleString), 100, stdin);
+
+// this one allows only numbers and letters and whitespaces and will cut off before the first new line:
+scanf_s("%99[0-9a-zA-Z ]", (pointerToCStyleString), 100);
+
+// this one will include all symbols before a newline
+scanf_s("%99[^\n]", (pointerToCStyleString), 100);
+```
+
+## EXERCISE
+Write a function that checks, whether a word is a Palindrome (same forwards and backwards)
+Hint: Use one pointer from front to Back and one from Back to Front.
+Hint: Move both pointers and check, whether they're the same.
+
+```
+Input: anna
+Output: 1
+Input: stockholm
+Output: 0
+```
+
+## EXERCISE
+Write a function that converts a string to all upper-case.
+
+```
+Input: Hello World.
+Output: HELLO WORLD.
+```
