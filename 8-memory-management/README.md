@@ -1,199 +1,254 @@
-# 8 Functions
+# 8 Memory Management
 
-Logical units inside the source code. Goal: Reusable Code.
-- saves time
-- reduces complexity, error-proneness
+1. The object’s storage duration begins, and storage is allocated.
+2. The object’s constructor is called.
+3. The object’s lifetime begins.
+4. You can use the object in your program.
+5. The object’s lifetime ends.
+6. The object’s destructor is called.
+7. The object’s storage duration ends, and storage is de-allocated.
 
-## IPO Principle
-- Input (Parameters)
-- Processing (Function Body)
-- Output (Return Value)
+## Automatic Storage Duration
 
-## Definition
-
-```cpp
-void printHello() {
-  printf("Hello!\n");
+```cs
+void addNumbers(int a, int b) {
+	int result = a+b;
+	return result;
 }
 ```
 
-## Invocation
+What Objects:
+- objects defined within a scope
+- "local variables"
+
+Storage Duration:
+- automatically allocated at the beginning of the enclosing scope
+- automatically de-allocated at the end of the enclosing scope
+
+In above example, `a`, `b` and `result` are automatically allocated when the function is invoked and automatically de-allocated just before the function returns
+
+## Static Storage Duration
 
 ```cpp
+#include <cstdio>
+
+int globalCounter{0};
+static int staticGlobalCounter{0};
+
+void runCounters() {
+	static int staticLocalCounter{0};
+	globalCounter++;
+	staticGlobalCounter++;
+	staticLocalCounter++;
+	printf("globalCounter: %d, staticLocalCounter: %d, staticGlobalCounter: %d\n", globalCounter, staticLocalCounter, staticGlobalCounter);
+}
+
 int main() {
-  printHello();
+	runCounters();
+	runCounters();
+	runCounters();
+}
+
+```
+
+What Objects:
+- declared at namespace scope (including global namespace)
+- declared with `static` or `extern` keywords
+
+Storage Duration:
+- automatically allocated on program start
+- automatically de-allocated on program exit
+
+In above example, `globalCounter`, `staticGlobalCounter` and `staticLocalCounter` all exist with only one instance in memory and allocated as long as the program runs.
+
+### Difference between the statics
+- al have a static storage duration
+- `static` global has an internally visible linker-symbol
+- global has an externally visible linker-symbol
+- `static` local has a visibility limited by its scope
+
+## Thread Storage Duration
+
+```cpp
+#include <cstdio>
+
+thread_local int globalCounter{0};
+static thread_local int staticGlobalCounter{0};
+
+void runCounters() {
+	static thread_local int staticLocalCounter{0};
+	globalCounter++;
+	staticGlobalCounter++;
+	staticLocalCounter++;
+	printf("globalCounter: %d, staticLocalCounter: %d, staticGlobalCounter: %d\n", globalCounter, staticLocalCounter, staticGlobalCounter);
+}
+
+int main() {
+	runCounters();
+	runCounters();
+	runCounters();
 }
 ```
 
-## Parameters
+What Objects:
+- declared with `thread_local` keyword
+
+Storage Duration:
+- automatically allocated on thread start
+- automatically de-allocated on thread exit
+
+In above example, `globalCounter` and `staticGlobalCounter` are allocated separately on each thread and de-allocated for each thread when it ends.
+
+## Dynamic Storage Duration
 
 ```cpp
-void printSum(int a, int b){
-  printf("%d", a+b);
+#include <cstdio>
+
+struct Battery {
+	int power;
+  static int totalPower;
+};
+thread_local int Battery::totalPower{200};
+
+int main() {
+	Battery* battery{nullptr};
+	for(int i = 0; i < 3; i++) {
+		{
+			printf("Do you want to create a battery? [y/n]\n");
+			fflush(stdin);
+			char answer = getchar();
+			if(answer == 'y') {
+				battery = new Battery();
+        battery.power = 10;
+        Battery::totalPower += 10;
+			}
+		}
+		{
+			printf("Do you want to delete the battery? [y/n]\n");
+			fflush(stdin);
+			char answer = getchar();
+			if(answer == 'y') {
+				delete battery;
+        Battery::totalPower -= 10;
+				battery = nullptr;
+			}
+		}
+	}
+	printf("In the end, we have a power of: %d\n",Battery::totalPower);
 }
 ```
 
-## Invocation with Parameters
+What Objects:
+- explicitly allocated using the `new` keyword
 
+Storage Duration:
+- allocated on `new` (old: `malloc`)
+- de-allocated on `delete` or `delete[]` (old: `free`)
+
+In above example, `battery` is allocated and de-allocated explicitly only, if the user approves it. 
+
+### new
+
+When the `new` expression executes, the C++ runtime 
+- allocates memory to store a `Battery`-object
+- invokes the class's constructor
+- returns its pointer `Battery*`
+
+### delete
+When the `delete` expression executes, the C++ runtime
+- invokes the class's destructor
+- de-allocates the object's memory
+- returns `void`
+
+Note: The Memory does not get cleaned up
+- Bug: Use after Free
+- You might use an object that's already been deleted
+- It doesn't become obvious anytime soon, because the values look good
+- But when a new object gets allocated in the same memory address
+- Things go down-under. Connection between `delete` and the Bug appearing is unclear
+
+### Dynamic Arrays
+Allow to store arbitrary-sized Arrays
 ```cpp
-printSum(3, 5); // 8
-```
+#include <cstdio>
 
-## Return Type
+struct Battery {
+	int power;
+	static thread_local int totalPower;
+};
+thread_local int Battery::totalPower{200};
 
-```cpp
-int addNumbers(int a, int b) {
-	return a + b; // need to return a value matching the return type!
+int main() {
+	printf("How many Batteries do you want? [0-9]\n");
+	fflush(stdin);
+	char answer = getchar();
+	int answerNum = answer - '0';
+	Battery** batteries {new Battery*[answerNum]};
+	for(int i = 0; i < answerNum; i++) {
+		batteries[i] = new Battery();
+    batteries[i].power = 10;
+    Battery::totalPower += 10;
+	}
+	for(int i = answerNum-1; i > -1; i--) {
+		delete batteries[i];
+	}
+	delete[] batteries;
+
+	printf("In the end, we have a power of: %d\n",Battery::totalPower);
 }
 ```
 
-## Return (void)
+## Memory Leaks
+- If you allocate memory
+- But forget to de-allocate it
+- Resources are lost FOREVER
+- Or until your program exits (whichever happens sooner)
 
-You can use `return` in `void`-type functions as well
-- this will end the function execution instantly
-- and execute none of the remaining lines of code
-
+## Tracing Object Life Cycle
+This example uses Object-Oriented-Code, but no worries, it stays simple enough.
 ```cpp
-void buyAlcohol(int age){
-  if(age < 18){
-    return;
+#include <cstdio>
+
+class Tracer {
+  const char* const name;
+public:
+  Tracer(const char* name) : name{ name }➋ {
+    printf("%s()\n", name);
   }
-  printf("Bought alcohol!\n");
-}
-```
+  ~Tracer() {
+    printf("~%s()\n", name);
+  }
+};
 
-## Using Return Value
-
-```cpp
-int result = addNumbers(3, 5); // 8
-printf(result);
-
-// or:
-printf(addNumbers(4, 6)); // 10
-```
-
-## Fun Fact: Void Parameter
-
-In the early days, you had to explicitly express if your function had no parameters:
-- by using `void` as parameter list
-
-You can still do that today!
-- but you should not
-
-```cpp
-void sayHello(void){
-  printf("Hello!\n");
-}
-```
-
-## Call Stack
-
-Remember, how the Call Stack works!
-
-```cpp
-void bar(int number){
-  printf("bar %d\n", number);
-}
-
-void foo(){
-  printf("before bar\n");
-  bar(1);
-  printf("after bar\n");
-}
-
-int main(){
-  printf("before foo\n");
-  foo();
-  printf("after foo\n");
-  bar(2);
-}
-```
-
-## Order Matters
-This won't compile because `bar` is not defined when `foo` is defined:
-```cpp
-void foo(){
-  bar();
-}
-void bar(){}
-```
-
-### Inefficient Solution: Reorder
-You can reorder the code to ensure that the needed functions always comes first
-```cpp
-void bar(){}
-void foo(){
-  bar();
-}
-```
-
-This also wouldn't work for this example:
-
-```cpp
-void bar(){
-  foo();
-}
-void foo(){
-  bar();
-}
-```
-
-### Better Solution: Forward-Declaration
-You can declare functions before defining them. This makes sure that the order won't matter
-```cpp
-// declare the functions before defining them:
-void bar();
-void foo();
-
-// now, define them. The order doesn't matter anymore.
-void bar(){
-  foo();
-}
-void foo(){
-  bar();
-}
-```
-
-## Overloading
-Overloading describes providing multiple functions with the same name (but different arguments):
-
-```cpp
-int max(int a, int b){printf("calling int\n"); return b > a ? b : a};
-float max(float a, float b){printf("calling float\n"); return b > a ? b : a};
+static Tracer t1{ "Static" };
+thread_local Tracer t2{ "Thread-local" };
 
 int main() {
-  printf("max(3, 4): %d\n", max(3, 4));
-  printf("max(3.2f, 4.2f): %f\n", max(3.2f, 4.2f));
+  printf("Step 1\n");
+  Tracer t3{ "Automatic" };
+  printf("Step 2\n");
+  const auto* t4 = new Tracer{ "Dynamic" };
+  printf("Step 3\n");
 }
 ```
 
-Output:
-```
-calling int
-max(3, 4): 4
-calling float
-max(3.2f, 4.2f): 4.200000
-```
+## EXERCISE
+- Ask the user, how many People he wants to create.
+- Create an array of that function.
+- Write a function that can create a person.
+  - It should return a pointer to the created Person to avoid unnecessary copies.
+  - It should return a Person `struct` where the name has been assigned.
+- In the main function, use that function as many times as necessary to fill the array with people.
+- After that, do a for-loop to print the names of all the people separated by comma as well as the total amount of people:
 
-### Same Arguments not possible!
-Else, the compiler can't guarantee to know, which one to call.
-```cpp
-#include <limits>
-#include <iostream>
-
-int max_num(bool positive) {
-	return positive ? std::numeric_limits<int>::max() : std::numeric_limits<int>::min();
-}
-float max_num(bool positive) { 
-	return positive ? std::numeric_limits<float>::max() : std::numeric_limits<float>::min();
-}
-
-int main() {
-	std::cout << max_num(true); // which one is it supposed to call??
-}
 ```
-
-Compile Error:
-```
-Error (active)	E0311	cannot overload functions distinguished by return type alone.
+Output:How many people do you want to create?
+Input:3
+Output:What's the next person supposed to be called?
+Input:Marc
+Output:What's the next person supposed to be called?
+Input:Alex
+Output:What's the next person supposed to be called?
+Input:Sarah
+Output:Marc, Alex, Sarah
 ```
