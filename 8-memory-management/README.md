@@ -1,5 +1,41 @@
 # 8 Memory Management
 
+## The Problem:
+
+```cpp
+char* askForName() { // name enters scope
+  printf("Pick a name.");
+  char name[100];
+  scanf_s("%s", name, 100);
+  return name; // we return a pointer to memory of this scope
+} // name leaves scope
+
+int main(){
+  char* names[3];
+  for(int i = 0; i < 3; ++i){
+    names[i] = askForName();
+  }
+
+  for(int i = 0; i < 3; ++i){
+    printf("Name #%d: %s", i, names[i]);
+  }
+}
+```
+
+- Input: `Marc, Sarah, Alex`
+- Output: `undefined`
+  - might be `Name #0: AlexName #1: AlexName #2: Alex`
+  - or `Name #0: ╠╠╠╠╠╠╠╠╠╠╠╠╠╠╠╠h°/⌠*Name #1: ╠╠╠╠╠╠╠╠╠╠╠╠╠╠╠╠h°/⌠*Name #2: ╠╠╠╠╠╠╠╠╠╠╠╠╠╠╠╠h°/⌠*`
+
+Problem: We're returning the address to Memory that is allocated for the scope of the function only.
+- it is then freed when the function exits
+- but we still have a pointer to that address
+- that the system believes can be used for other variables now
+
+To solve this, we need to understand
+
+## Object's Lifetime
+
 1. The object’s storage duration begins, and storage is allocated.
 2. The object’s constructor is called.
 3. The object’s lifetime begins.
@@ -10,7 +46,7 @@
 
 ## Automatic Storage Duration
 
-```cs
+```cpp
 void addNumbers(int a, int b) {
 	int result = a+b;
 	return result;
