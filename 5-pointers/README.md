@@ -496,7 +496,7 @@ fgets((pointerToCStyleString), 100, stdin);
 scanf_s("%99[0-9a-zA-Z ]", (pointerToCStyleString), 100);
 
 // this one will include all symbols before a newline
-scanf_s("%99[^\n]", (pointerToCStyleString), 100);
+scanf_s("%99[^\n]%*c", (pointerToCStyleString), 100);
 ```
 
 ## EXERCISE
