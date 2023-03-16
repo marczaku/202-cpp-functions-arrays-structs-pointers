@@ -3,7 +3,12 @@
 In this course, we'll learn some of the core features of C++ not including Object-Oriented Programming, yet.
 
 ## Passing Criteria
-TBA
+Implement Tic-Tac-Toe
 
 ## Excellent Criteria
-TBA
+Make use of:
+- Functions
+- Enums
+
+Do not use:
+- Global Variables
