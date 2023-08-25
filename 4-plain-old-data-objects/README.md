@@ -223,8 +223,9 @@ struct Game{
 ## EXERCISE
 - Fix the following code, so the `book`* within `main()` has its `numberOfPages` changed after calling the function:
 
-*you find `struct Book` at the top of this page.
-
+*you find `struct Book` at the top of this page.\
+*you haven't learnt about pointers, yet. So you need to restructure the `stealHalfTheBook` function to solve this problem.\
+*the function can not directly change the `book` variable from `main`, but how else could the information be moved from `stealHalfTheBook` to `main`?
 
 ```cpp
 void stealHalfTheBook(Book book){
