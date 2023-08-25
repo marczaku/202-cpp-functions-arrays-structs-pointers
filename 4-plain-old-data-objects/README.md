@@ -221,8 +221,11 @@ struct Game{
 ```
 
 ## EXERCISE
-- Fix the following code, so the `book` within `main()` has its `numberOfPages` changed after calling the function:
-```cpp
+- Fix the following code, so the `book`* within `main()` has its `numberOfPages` changed after calling the function:
+
+*you find `struct Book` at the top of this page.
+
+
 ```cpp
 void stealHalfTheBook(Book book){
 	book.numberOfPages /= 2;
