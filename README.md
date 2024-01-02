@@ -3,12 +3,7 @@
 In this course, we'll learn some of the core features of C++ not including Object-Oriented Programming, yet.
 
 ## Passing Criteria
-Implement Tic-Tac-Toe
+Complete one exercise of each chapter up to `8-memory-management`
 
 ## Excellent Criteria
-Make use of:
-- Functions
-- Enums
-
-Do not use:
-- Global Variables
+Complete the exercise in `8-memory-management`
