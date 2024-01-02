@@ -1,4 +1,4 @@
-# 8 Auto Type Deduction
+# 7 Auto Type Deduction
 
 ```cpp
 auto number{12};
