@@ -49,12 +49,16 @@ Output:
 ## Index Operator
 
 ```c++
-printf("Second element: %d", array[1]); // 2
+scanf_s("%d", &(array[0]);
+cin >> array[1];
+```
+
+```c++
+printf("Second element: %d", array[2]); // 2
+cout << array[3];
 ```
 
 ## for
-
-You should not use `int`, since it does not guarantee to be able to store an Array of `MAX_SIZE`:
 
 ```c++
 for(int i = 0; i < 10; ++i) {
@@ -62,10 +66,9 @@ for(int i = 0; i < 10; ++i) {
 }
 ```
 
-Instead use `size_t`, especially, if you want to support edge case:
-
+Use `size_t` when you're not sure about the size of an Array (it could be larger than 1.2bln elements)
 ```c++
-for(size_t i = 0; i < 5; i++) {
+for(size_t i = 0; i < std::size(array); i++) {
 	printf("%d\n", array[i]);
 }
 ```
