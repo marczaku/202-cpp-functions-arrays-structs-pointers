@@ -1,6 +1,6 @@
 # 7 Auto Type Deduction
 
-```cpp
+```c++
 auto number{12};
 auto isAlive{true};
 auto name{"Marc"};
@@ -8,7 +8,7 @@ auto name{"Marc"};
 
 ## Reference Types
 
-```cpp
+```c++
 auto number{42};
 auto& numberRef = number;
 auto* numberPtr = &number;

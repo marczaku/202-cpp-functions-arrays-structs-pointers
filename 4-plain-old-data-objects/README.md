@@ -5,7 +5,7 @@
 
 ## Definition
 
-```cpp
+```c++
 struct Book {
 	char name[256];
 	int year;
@@ -16,7 +16,7 @@ struct Book {
 
 ## Usage
 
-```cpp
+```c++
 int main() {
 	Book book;
 	book.name = "Harry Potter Part 1";
@@ -27,9 +27,9 @@ int main() {
 
 ## Size
 
-A Size is as large as the sum of all its members:
+A PODs size is as large as the sum of all its members:
 
-```cpp
+```c++
 #include <cstdio>
 
 struct Book {
@@ -50,7 +50,7 @@ You can nest structs without any bad impact on
 - either performance
 - or memory
 
-```cpp
+```c++
 #include <cstdio>
 
 struct Author {
@@ -75,7 +75,7 @@ int main() {
 - CPU Register Length causes member alignment
 - Rule: Order members from large to small
 
-```cpp
+```c++
 #include <stdlib.h>
 #include <cstdio>
 #include <time.h>
@@ -94,7 +94,7 @@ int main() {
 ## Copy
 Structs are generally, just like basic data types, copied/cloned when assigned to another variable:
 
-```cpp
+```c++
 Book a;
 a.numberOfPages = 200;
 Book b = a; // clone
@@ -108,7 +108,7 @@ printf("Pages of Book b:%d\n", b.numberOfPages); // 100
 ## Call-By-Value
 Structs are generally, just like basic data types, copied/cloned when passed on to a function:
 
-```cpp
+```c++
 void stealHalfTheBook(Book book){
 	book.numberOfPages /= 2;
 	printf("Pages of Book after stealing:%d\n", book.numberOfPages); // 100
@@ -126,7 +126,7 @@ int main(){
 ## Self-Reference
 A struct cannot contain itself as a Member. Why?
 
-```cpp
+```c++
 struct SnakeBody {
 	SnakeBody nextBody;
 };
@@ -139,7 +139,7 @@ struct SnakeBody {
 
 ### Definition
 
-```cpp
+```c++
 union Variant {
 	bool isTrue; // 1
 	int number; // 4
@@ -153,7 +153,7 @@ int main() {
 
 ### Usage
 
-```cpp
+```c++
 Variant v;
 v.number = 42;
 printf("Nice: %d\n", v.number);
@@ -172,7 +172,7 @@ Nope: 1076754509
 - Write a function named `add` that can add two vectors and returns the result.
 - Test the Code.
 
-```cpp
+```c++
 Output: Adding Vector(3,2) and (-1,-2)...
 Output: Result: Vector(2,0)
 ```
@@ -181,7 +181,7 @@ Output: Result: Vector(2,0)
 ## EXERCISE
 - Improve the following `struct` by introducing additional `structs`:
 
-```cpp
+```c++
 struct Game{
    int remainingMinutes;
    char firstPlayerName[10];
@@ -227,7 +227,7 @@ struct Game{
 *you haven't learnt about pointers, yet. So you need to restructure the `stealHalfTheBook` function to solve this problem.\
 *the function can not directly change the `book` variable from `main`, but how else could the information be moved from `stealHalfTheBook` to `main`?
 
-```cpp
+```c++
 void stealHalfTheBook(Book book){
 	book.numberOfPages /= 2;
 	printf("Pages of Book after stealing:%d\n", book.numberOfPages); // 100

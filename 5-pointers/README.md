@@ -20,7 +20,7 @@ Pointers contain both pieces of information needed to interact with information:
 
 Pointer-Declarator `*`
 
-```cpp
+```c++
 int* myPointer;
 ```
 
@@ -32,7 +32,7 @@ Address-Of Operator `&`
   - e.g. for `int`, it returns `int*`
   - e.g. for `char*`, it returns `char**`
 
-```cpp
+```c++
 #include <cstdio>
 
 int main() {
@@ -72,7 +72,7 @@ Dereference Operator `*`
 - you can then assign the object to another variable
 - or you can write a new value into the object
 
-```cpp
+```c++
 #include <cstdio>
 
 int main() {
@@ -94,7 +94,7 @@ To access a member of a class-pointer, you need to:
 - dereference the pointer
 - access a member of the pointed-to object
 
-```cpp
+```c++
 #include <cstdio>
 
 struct DateTime {
@@ -118,7 +118,7 @@ This can be done much more elegant using the arrow-operator:
 - Before: `(*variablePtr).member`
 - After: `variablePtr->member`
 
-```cpp
+```c++
 #include <cstdio>
 
 struct DateTime {
@@ -141,7 +141,7 @@ int main() {
 ### Call-by-Reference
 By passing on a pointer to a function, you can prevent your Struct from being Copied/Cloned:
 
-```cpp
+```c++
 void stealHalfTheBook(Book* pBook){ // pointer to main-Book
 	pBook->numberOfPages /= 2;
 	printf("Pages of Book after stealing:%d\n", pBook->numberOfPages); // 100
@@ -156,8 +156,8 @@ int main(){
 }
 ```
 
-#### Without the Array-Operator:
-```cpp
+#### Without the Arrow-Operator:
+```c++
 void stealHalfTheBook(Book* pBook){ // pointer to main-Book
 	(*pBook).numberOfPages /= 2;
 	printf("Pages of Book after stealing:%d\n", (*pBook).numberOfPages); // 100
@@ -173,7 +173,7 @@ int main(){
 ```
 
 #### But be careful when dereferencing!
-```cpp
+```c++
 void stealHalfTheBook(Book* pBook){ // pointer to main-Book
 	Book book = *pBook; // clone
 	pBook->numberOfPages /= 2;
@@ -196,7 +196,7 @@ Pointers are similar to Arrays:
 
 ### Explain the Output:
 
-```cpp
+```c++
 #include <cstdio>
 
 void foo(char name[10])
@@ -221,14 +221,14 @@ Size within foo: 8
 ### Array Decay
 Arrays can decay into pointers:
 
-```cpp
+```c++
 int keyToTheUniverse[]{3,6,9};
 int* keyPtr = keyToTheUniverse; // points to 3
 ```
 
 This happens whenever you want to pass on an Array to another variable or function:
 
-```cpp
+```c++
 #include <cstdio>
 
 void printNumbers(int* numbers) {
@@ -248,7 +248,7 @@ This is usually solved by passing on two arguments:
 - A pointer to the first array element
 - The array length
 
-```cpp
+```c++
 #include <cstdio>
 #include <array>
 
@@ -271,7 +271,7 @@ This is ubiquitous in C-Style APIs, e.g. Windows and Linux systems.
 
 The following four lines all do the same:
 
-```cpp
+```c++
 int main() {
 	int secondElement = keyToTheUniverse[1];
 	secondElement = *(keyToTheUniverse+1);
@@ -284,7 +284,7 @@ int main() {
 
 When you add a scalar to a pointer, it offsets the pointer address by `the pointed-to-type's size * scalar value`
 
-```cpp
+```c++
 int numbers[]{1,2,3};
 int* first = numbers; // address of first element
 int* third = first+2; // address of third element (first + 2 * 4 bytes)
@@ -292,7 +292,7 @@ int* third = first+2; // address of third element (first + 2 * 4 bytes)
 
 Same for Short:
 
-```cpp
+```c++
 short numbers[]{1,2,3};
 short* first = numbers; // address of first element
 short* third = first+2; // address of third element (first + 2 * 2 bytes)
@@ -300,7 +300,7 @@ short* third = first+2; // address of third element (first + 2 * 2 bytes)
 
 Addition is commutative, which means that you can also do:
 
-```cpp
+```c++
 short* second = 1+first;
 ```
 
@@ -311,28 +311,28 @@ short* second = 1+first;
   - i.e. move 5 elements down in memory
 - then, dereference the pointer to access the value
 
-```cpp
+```c++
 short numbers[]{1,2,3};
 short third = numbers[2];
 ```
 
 This is the same as:
 
-```cpp
+```c++
 short numbers[]{1,2,3};
 short third = *(numbers+2);
 ```
 
 Which is commutative, so the same as:
 
-```cpp
+```c++
 short numbers[]{1,2,3};
 short third = *(2+numbers);
 ```
 
 Which can then be written as:
 
-```cpp
+```c++
 short numbers[]{1,2,3};
 short third = 2[numbers];
 ```
@@ -346,7 +346,7 @@ You can access arbitrary elements using the Bracket-Operator.
 - unless you access an address without permission by the OS
   - then the OS will terminate your program
 
-```cpp
+```c++
 #include <cstdio>
 #include <array>
 
@@ -384,7 +384,7 @@ If you want to pass on an address of arbitrary data, like reading, writing files
 ## Nullptr
 `nulltr` is the value for a pointer to 'nothing'. It is usually used to indicate that something does not exist (yet) or something went wrong.
 
-```cpp
+```c++
 #include <cstdio>
 #include <array>
 
@@ -421,7 +421,7 @@ Pointers have an implicit conversion to type `bool`:
 
 Therefore:
 
-```cpp
+```c++
 if(chosenName == nullptr)
 // is the same as:
 if(!chosenName)
@@ -429,7 +429,7 @@ if(!chosenName)
 
 And
 
-```cpp
+```c++
 if(chosenName != nullptr)
 // is the same as:
 if(chosenName)
@@ -441,7 +441,7 @@ Write a Swap Function
 - It swaps the values behind both pointers
 - Use the following code:
 
-```cpp
+```c++
 // enter swap function here
 
 int main(){
@@ -485,7 +485,7 @@ Write a Function that prints all Employees to the console.
 Write a Function that prints the average Salary to the console.
 
 Here's some help for reading the Name from the console:
-```cpp
+```c++
 // this one will cut off before the first white space or new line:
 scanf_s("%s", (pointerToCStyleString), 100);
 

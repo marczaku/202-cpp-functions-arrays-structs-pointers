@@ -2,7 +2,7 @@
 
 ## The Problem:
 
-```cpp
+```c++
 char* askForName() { // name enters scope
   printf("Pick a name.");
   char name[100];
@@ -46,7 +46,7 @@ To solve this, we need to understand
 
 ## Automatic Storage Duration
 
-```cpp
+```c++
 void addNumbers(int a, int b) {
 	int result = a+b;
 	return result;
@@ -65,7 +65,7 @@ In above example, `a`, `b` and `result` are automatically allocated when the fun
 
 ## Static Storage Duration
 
-```cpp
+```c++
 #include <cstdio>
 
 int globalCounter{0};
@@ -105,7 +105,7 @@ In above example, `globalCounter`, `staticGlobalCounter` and `staticLocalCounter
 
 ## Thread Storage Duration
 
-```cpp
+```c++
 #include <cstdio>
 
 thread_local int globalCounter{0};
@@ -137,7 +137,7 @@ In above example, `globalCounter` and `staticGlobalCounter` are allocated separa
 
 ## Dynamic Storage Duration
 
-```cpp
+```c++
 #include <cstdio>
 
 struct Battery {
@@ -205,7 +205,7 @@ Note: The Memory does not get cleaned up
 
 ### Dynamic Arrays
 Allow to store arbitrary-sized Arrays
-```cpp
+```c++
 #include <cstdio>
 
 struct Battery {
@@ -242,7 +242,7 @@ int main() {
 
 ## Tracing Object Life Cycle
 This example uses Object-Oriented-Code, but no worries, it stays simple enough.
-```cpp
+```c++
 #include <cstdio>
 
 class Tracer {

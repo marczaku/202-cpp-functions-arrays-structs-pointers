@@ -5,7 +5,7 @@ Safer, more convenient version of pointers
 - cannot be reseated (reassigned)
 - no member-of-pointer operator needed `->`
 
-```cpp
+```c++
 #include <cstdio>
 
 struct DateTime {
@@ -25,7 +25,7 @@ int main() {
 
 Cannot be reseated:
 
-```cpp
+```c++
 #include <cstdio>
 
 struct DateTime {

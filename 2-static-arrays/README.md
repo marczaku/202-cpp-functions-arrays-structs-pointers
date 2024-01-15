@@ -1,18 +1,18 @@
 # 2 Static Arrays
 
-```cpp
+```c++
 int numbers[100];
 ```
 
 Size of the Array must be constant!
 - unless you compile with `gcc`/`g++`
 
-```cpp
+```c++
 int size = 5;
 int numbers[size]; // ERROR!
 ```
 
-```cpp
+```c++
 const int size = 5;
 int numbers[size]; // OK!
 ```
@@ -20,7 +20,7 @@ int numbers[size]; // OK!
 ## Uninitialized Arrays
 Have random values! Do never forget to initialize:
 
-```cpp
+```c++
 int numbers[5];
 for(int number : numbers){
 	printf("%d, ", number);
@@ -34,10 +34,10 @@ Output:
 
 ## Initialization
 
-```cpp
+```c++
 int array[] = {1, 2, 3, 4};
 for(int number : numbers){
-	printf("%d\n", number);
+	printf("%d, ", number);
 }
 ```
 
@@ -48,7 +48,7 @@ Output:
 
 ## Index Operator
 
-```cpp
+```c++
 printf("Second element: %d", array[1]); // 2
 ```
 
@@ -56,7 +56,7 @@ printf("Second element: %d", array[1]); // 2
 
 You should not use `int`, since it does not guarantee to be able to store an Array of `MAX_SIZE`:
 
-```cpp
+```c++
 for(int i = 0; i < 10; ++i) {
 	printf("%d\n", i);
 }
@@ -64,7 +64,7 @@ for(int i = 0; i < 10; ++i) {
 
 Instead use `size_t`, especially, if you want to support edge case:
 
-```cpp
+```c++
 for(size_t i = 0; i < 5; i++) {
 	printf("%d\n", array[i]);
 }
@@ -73,7 +73,7 @@ for(size_t i = 0; i < 5; i++) {
 ## Range-Based For
 Like `foreach`:
 
-```cpp
+```c++
 for(int number : array) {
 	printf("%d\n", number);
 }
@@ -83,13 +83,13 @@ for(int number : array) {
 
 The hard, manual way:
 
-```cpp
+```c++
 size_t count = sizeof(array) / sizeof(int);
 ```
 
 Better:
 
-```cpp
+```c++
 #include <array>
 size_t count = std::size(array);
 ```
