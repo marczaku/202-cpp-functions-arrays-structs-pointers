@@ -109,6 +109,3 @@ Left-Rotate an Array.
 Before: 12 14 16 18 20
 After: 14 16 18 20 12
 ```
-
-## EXERCISE
-Implement a Tic-Tac-Toe Game.
