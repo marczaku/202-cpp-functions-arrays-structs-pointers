@@ -19,7 +19,7 @@ void bar(){
 
 ## Static Arrays
 
-Do not exist the same way in C#
+Do not work the same way in C# (unless using the `fixed` keyword in C#)
 
 ```c++
 // define and initialize array
