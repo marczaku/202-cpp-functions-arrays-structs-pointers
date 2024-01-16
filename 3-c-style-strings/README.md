@@ -55,4 +55,4 @@ printf("Here you go: %s", text);
 - Create a String with all letters A-Z
   - don't type in the characters manually
   - instead fill them in the string using a loop
-- Then, Print the string to the console
+- >>THEN<< (AFTER FILLING, NOT WHILE FILLING) Print the string to the console
