@@ -3,7 +3,7 @@
 - Ends with first occurrence of `'\0' (0)` 
 
 ```c++
-char text[] = "Hello";
+char text[6] = "Hello";
 ```
 
 | Array Index | 0  | 1   | 2   | 3   | 4   | 5  |
