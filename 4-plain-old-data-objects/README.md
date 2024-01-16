@@ -169,8 +169,25 @@ Nope: 1076754509
 
 ## EXERCISE
 - Write a Vector-Struct `Vector2D`
-- Write a function named `add` that can add two vectors and returns the result.
+- Write a function named `add` that can add two vectors and returns the resulting Vector.
+  - Remember: IPO Model!
+    - What is the input to the function? -> two vectors
+    - What is the output of the function? -> the resulting Vector
+    - What is the processing of the function? -> see below
 - Test the Code.
+
+```
+When adding two vectors:
+a(x1,y1)
+b(x2,y2)
+
+The result is:
+c(x3,y3)
+
+Where
+x3 = x1+x2
+y3 = y1+y2
+```
 
 ```c++
 Output: Adding Vector(3,2) and (-1,-2)...
