@@ -32,11 +32,14 @@ for(size_t i = 0; i < size; i++){
    cin >> numbers[i];
    scanf_s("%d", &(numbers[i]);
 }
+numbers[3] = 3;
+
 for(size_t i = 0; i < size; i++){
    // access array value
    cout << numbers[i] << '\n';
    printf("%d\n", numbers[i]);
 }
+int a = numbers[3];
 // iterate using
 for(int number : numbers) {
    printf("%d\n", number);
