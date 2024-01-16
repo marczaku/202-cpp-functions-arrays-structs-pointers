@@ -30,14 +30,16 @@ size_t size = std::size(numbers);
 for(size_t i = 0; i < size; i++){
    // assign value to array
    cin >> numbers[i];
+   scanf_s("%d", &(numbers[i]);
 }
 for(size_t i = 0; i < size; i++){
    // access array value
-   cout << numbers[i];
+   cout << numbers[i] << '\n';
+   printf("%d\n", numbers[i]);
 }
 // iterate using
 for(int number : numbers) {
-	printf("%d\n", number);
+   printf("%d\n", number);
 }
 ```
 
