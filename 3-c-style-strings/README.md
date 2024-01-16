@@ -1,5 +1,5 @@
 # 3 C-Style Strings
-- Null-Terminated String
+- Null-Terminated Character Array
 - Ends with first occurrence of `'\0' (0)` 
 
 ```c++
